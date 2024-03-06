@@ -1,14 +1,11 @@
-export default function signUpUser(firstName, lastName){
-    const newPromise = new Promise((resolve, reject) => {
-	resolve({
-            firstName: firstName,
-	    lastName: lastName
-	})
+export default function signUpUser(firstName, lastName) {
+  const newPromise = new Promise((resolve, reject) => {
+    resolve({
+      firstName,
+      lastName,
     });
-    newPromise.then((message) => {
-	return (message);
-    }).catch(() => {
-	return (new Error());
-    });
-    return (newPromise);
+    reject(new Error());
+  });
+  newPromise.then((message) => (message)).catch((message) => message);
+  return (newPromise);
 }
