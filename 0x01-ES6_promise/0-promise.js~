@@ -1,0 +1,10 @@
+function getResponseFromAPI(){
+    const newPromise = new Promise(function(resolve, reject){
+	resolve();
+	reject();
+    });
+    newPromise.then(
+	function(value){},
+	function(error){});
+    return newPromise;
+}
