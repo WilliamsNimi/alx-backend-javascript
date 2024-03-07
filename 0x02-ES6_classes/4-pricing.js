@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
 import Currency from './3-currency';
 
 export default class Pricing {
@@ -29,6 +31,6 @@ export default class Pricing {
   }
 
   convertPrice(amount, conversionRate) {
-    return (this._amount * conversionRate);
+    return (amount * conversionRate);
   }
 }
