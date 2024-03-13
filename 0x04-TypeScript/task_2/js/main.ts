@@ -1,0 +1,70 @@
+export interface DirectorInterface{
+workFromHome: () => string;
+getCoffeeBreak: () => string;
+workDirectorTasks: () => string;
+}
+
+export interface TeacherInterface{
+workFromHome: () => string;
+getCoffeeBreak: () => string;
+workTeacherTasks: () => string;
+}
+
+export class Director implements DirectorInterface {
+  workFromHome() {
+    return 'Working from home';
+  }
+
+  getCoffeeBreak() {
+    return 'Getting a coffee break';
+  }
+
+  workDirectorTasks() {
+    return 'Getting to director tasks';
+  }
+}
+
+export class Teacher implements TeacherInterface {
+  workFromHome() {
+    return 'Cannot work from home';
+  }
+
+  getCoffeeBreak() {
+    return 'Cannot have a break';
+  }
+
+  workTeacherTasks() {
+    return 'Getting to work';
+  }
+}
+
+export function createEmployee(salary: number | string): DirectorInterface | TeacherInterface {
+  if (typeof salary === 'number') {
+    if (salary < 500) {
+      return new Teacher();
+    }
+
+    return new Director();
+  }
+}
+console.log(createEmployee(200).toString());
+console.log(createEmployee(1000).toString());
+console.log(createEmployee('$500').toString());
+
+export function isDirector(employee) {
+  if (employee === 'Director') {
+    return true;
+  }
+
+  return false;
+}
+export function executeWork(employee) {
+  if (isDirector(employee)) {
+    employee.workDirectorTasks();
+  } else {
+    employee.workTeacherTasks;
+  }
+}
+
+executeWork(createEmployee(200));
+executeWork(createEmployee(1000));
