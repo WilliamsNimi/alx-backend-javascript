@@ -1,3 +1,3 @@
-module.exports = function displayMessage(strArg){
-    console.log('${strArg}');
-}
+module.exports = function displayMessage(strArg) {
+  console.log(`${strArg}`);
+};
