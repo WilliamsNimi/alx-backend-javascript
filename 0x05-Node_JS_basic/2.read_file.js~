@@ -1,0 +1,11 @@
+const fileSystem =  require('node:fs');
+module.exports = countStudents(filePath) {
+    fileSystem.readFile(filePath, 'utf-8', (err, data) => {
+	if (err){
+	    console.error("Cannot load the database");
+	    return;
+	}
+	let students = null, data.toString().split('\n');
+	console.log(`Number of students: ${students}`);
+    });
+}
