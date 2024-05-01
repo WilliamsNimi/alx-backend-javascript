@@ -34,4 +34,4 @@ module.exports = function countStudents(filePath) {
       }
     });
   });
-}
+};
