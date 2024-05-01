@@ -1,42 +1,31 @@
-const fileSystem = require('node:fs');
+const fs = require('fs');
+
+const dbColumns = 4;
 
 module.exports = function countStudents(filePath) {
   try {
-    const data = fileSystem.readFileSync(filePath, 'utf8');
-    data_list = data.toString().split('\n');
-    const f_names_course = [];
-    const first_names = [];
-    const courses = [];
-    const dict = {};
-    no_of_students = data.toString().split('\n').length - 1;
-    console.log(`Number of students: ${no_of_students}\n`);
-    for (let i = 1; i <= no_of_students; i++) {
-	    row = data_list[i].split(',');
-	    f_names_course.push([row[0], row[3]]);
-	    first_names.push(row[0]);
-	    courses.push(row[3]);
-    }
-    const fields = new Set(courses);
-    const fields_list = [...fields];
-    for (let i = 0; i < courses.length; i++) {
-	    for (j = 0; j < fields_list.length; j++) {
-        if (fields_list[j] in dict) {
-		    for (const key in dict) {
-            if (fields_list[j] === key) {
-			    dict[fields_list[j]].push(first_names[i]);
-            }
-		    }
+    const vals = fs.readFileSync(filePath, { encoding: 'utf8' });
+    const studentsArray = vals.split('\n');
+    const arrLength = studentsArray.length;
+    const numOfStudents = studentsArray[arrLength - 1] ? arrLength - 1 : arrLength - 2;
+    console.log(`Number of students: ${numOfStudents}`);
+    const courseDict = {};
+    studentsArray.slice(1, arrLength).forEach((student) => {
+      if (student) {
+        const studentArr = student.split(',');
+        if (courseDict[studentArr[dbColumns - 1]]) {
+          courseDict[studentArr[dbColumns - 1]].push(studentArr[0]);
         } else {
-		    dict[fields_list[j]] = [];
-		    dict[fields_list[j]].push(first_names[i]);
+          courseDict[studentArr[dbColumns - 1]] = [studentArr[0]];
         }
-	    }
+      }
+    });
+    for (const course in courseDict) {
+      if (course) {
+        console.log(`Number of students in ${course}: ${courseDict[course].length}. List: ${courseDict[course].join(', ')}`);
+      }
     }
-    console.log(first_names);
-    console.log(courses);
-    console.log(fields);
-    console.log(dict);
   } catch (err) {
-    console.error('Cannot load the database');
+    throw new Error('Cannot load the database');
   }
 };
