@@ -25,9 +25,9 @@ function countStudents(file_path) {
             }
           }
         });
-        for (const dept in course_dict) {
-          if (dept) {
-            student_list.push(`Number of students in ${dept}: ${deptDict[dept].length}. List: ${deptDict[dept].join(', ')}`);
+        for (const course in course_dict) {
+          if (course) {
+            student_list.push(`Number of students in ${course}: ${course_dict[course].length}. List: ${course_dict[course].join(', ')}`);
           }
         }
         resolve(student_list);
@@ -37,15 +37,15 @@ function countStudents(file_path) {
 }
 
 
-const app = http.createServer((req, res) => {
+const app = http.createServer(async (req, res) => {
   res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     if (req.url === '/') {
 	res.write('Hello Holberton School!');}
     else if (req.url === '/students'){
 	try {
-	    const listsArr = await countStudents(process.argv[2]);
-	    listsArr.forEach((str, idx) => {
+	    const lists = await countStudents(process.argv[2]);
+	    lists.forEach((str, idx) => {
 		const strAug = idx > 0 ? `\n${str}` : str;
 		res.write(strAug);
 	    });
