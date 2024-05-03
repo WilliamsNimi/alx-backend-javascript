@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
-const port = 7865
+const port = 7865;
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('Welcome to the payment system');
@@ -23,7 +26,8 @@ let available_payments = {
 res.send(available_payments);
 });
 app.post('/login', (req, res) => {
-    res.send(`Welcome ${req.body.userName}`);
+    const username = req.body.userName;
+    res.send(`Welcome ${username}`);
 });
 
 app.listen(port, () => {
