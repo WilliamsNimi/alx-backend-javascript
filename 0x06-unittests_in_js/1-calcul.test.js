@@ -32,5 +32,7 @@ describe('calculateNumber function', () => {
 	assert.equal(result, 3);
 	result = calculateNumber('DIVIDE', 5.6, 2.5);
 	assert.equal(result, 2);
+	result = calculateNumber('DIVIDE', 5.6, 0);
+	assert.equal(result, 'error');
     });
 });
